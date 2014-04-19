@@ -1,4 +1,7 @@
-package com.pefoley.weedroid.app;
+package com.pefoley.weedroid.message;
+
+import com.pefoley.weedroid.message.Message;
+import com.pefoley.weedroid.message.MsgType;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -13,14 +16,14 @@ public class MessageParser {
         return builder.toString();
     }
 
-    static List<Message> parseMessages(ByteBuffer buffer) {
+    public static List<Message> parseMessages(ByteBuffer buffer) {
         List<Message> messages = new ArrayList<Message>();
         while (buffer.hasRemaining()) {
             // ID's length comes right before it
             String id = parseString(buffer, buffer.getInt());
             // Type is 3 chars
             MsgType type = MsgType.valueOf(parseString(buffer, 3).toUpperCase());
-            messages.add(new Message(id, type, buffer));
+            messages.add(Message.parseMessage(id, type, buffer));
         }
         return messages;
     }

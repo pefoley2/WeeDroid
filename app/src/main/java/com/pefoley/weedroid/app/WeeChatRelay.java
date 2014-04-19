@@ -5,7 +5,11 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.List;
 import java.util.zip.GZIPInputStream;
+import com.pefoley.weedroid.command.Command;
+import com.pefoley.weedroid.message.Message;
+import com.pefoley.weedroid.message.MessageParser;
 
 public class WeeChatRelay {
 
@@ -23,12 +27,11 @@ public class WeeChatRelay {
         }
     }
 
-    void init(String password) throws IOException {
-        output.write("init password=" + password);
-
+    void sendCommand(Command command) throws IOException {
+        output.write(command.toString());
     }
 
-    void getPacket() throws IOException {
+    List<Message> processPacket() throws IOException {
         byte[] data, array = new byte[5];
         int length;
         ByteBuffer buffer;
@@ -42,6 +45,6 @@ public class WeeChatRelay {
             input = new GZIPInputStream(input);
         }
         input.read(data);
-        MessageParser.parseMessages(ByteBuffer.wrap(data).asReadOnlyBuffer());
+        return MessageParser.parseMessages(ByteBuffer.wrap(data).asReadOnlyBuffer());
     }
 }
