@@ -1,5 +1,5 @@
 .gradle
+gradle
 .idea/dictionaries
-/local.properties
-/.idea/workspace.xml
-.DS_Store
+.idea/workspace.xml
+local.properties
