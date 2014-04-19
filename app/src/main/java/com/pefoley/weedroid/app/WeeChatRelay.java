@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.ByteBuffer;
+import java.util.zip.GZIPInputStream;
 
 public class WeeChatRelay {
 
@@ -23,21 +24,24 @@ public class WeeChatRelay {
     }
 
     void init(String password) throws IOException {
-        output.write("init password="+password);
+        output.write("init password=" + password);
 
     }
-    void getPacket() {
-        byte[] array = new byte[5];
+
+    void getPacket() throws IOException {
+        byte[] data, array = new byte[5];
         int length;
-        boolean compression;
         ByteBuffer buffer;
-        try {
         input.read(array);
-            buffer = ByteBuffer.wrap(array);
-            length = buffer.getInt();
-            compression = buffer.get() != 0;
-        } catch (IOException e) {
-            e.printStackTrace();
+        buffer = ByteBuffer.wrap(array);
+        length = buffer.getInt();
+        // We don't need the length and compression fields.
+        data = new byte[length-5];
+        // Compression
+        if (buffer.get() != 0) {
+            input = new GZIPInputStream(input);
         }
+        input.read(data);
+        MessageParser.parseMessages(ByteBuffer.wrap(data).asReadOnlyBuffer());
     }
 }
