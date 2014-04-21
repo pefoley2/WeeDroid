@@ -14,4 +14,8 @@ public class CharMessage extends Message {
     char getData() {
         return data;
     }
+
+    public String toString(){
+        return String.valueOf(data);
+    }
 }

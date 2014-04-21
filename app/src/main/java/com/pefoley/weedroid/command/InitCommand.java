@@ -16,7 +16,7 @@ public class InitCommand extends Command {
     }
 
     public String toString() {
-        StringBuilder builder = new StringBuilder("init");
+        StringBuilder builder = new StringBuilder("init ");
         builder.append("password=").append(password);
         if(compression) {
             builder.append(",compression=zlib");

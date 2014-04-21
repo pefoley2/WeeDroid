@@ -1,5 +1,8 @@
 package com.pefoley.weedroid.app;
 
+import android.util.Log;
+
+import com.pefoley.weedroid.command.InfoCommand;
 import com.pefoley.weedroid.command.InitCommand;
 import com.pefoley.weedroid.message.Message;
 
@@ -15,8 +18,12 @@ public class Network implements Runnable {
             //FIXME: get from settings.
             s = new Socket("pefoley.com", 8001);
             WeeChatRelay w = new WeeChatRelay(s);
-            w.sendCommand(new InitCommand("bob"));
+            w.sendCommand(new InitCommand("fakepassword"));
+            w.sendCommand(new InfoCommand("version"));
             List<Message> m = w.processPacket();
+            for(Message q:m) {
+                Log.e("WEE", q.toString());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

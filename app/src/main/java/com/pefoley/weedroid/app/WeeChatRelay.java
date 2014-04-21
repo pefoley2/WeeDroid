@@ -2,6 +2,7 @@ package com.pefoley.weedroid.app;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -14,27 +15,24 @@ import com.pefoley.weedroid.message.MessageParser;
 public class WeeChatRelay {
 
     private Socket socket;
-    private OutputStreamWriter output;
-    private InputStream input;
 
     WeeChatRelay(Socket s) {
         this.socket = s;
-        try {
-            this.output = new OutputStreamWriter(s.getOutputStream());
-            this.input = s.getInputStream();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     void sendCommand(Command command) throws IOException {
-        output.write(command.toString());
+        socket.getOutputStream().write(command.toString().getBytes());
+    }
+
+    boolean isClosed() {
+        return socket.isClosed();
     }
 
     List<Message> processPacket() throws IOException {
         byte[] data, array = new byte[5];
         int length;
         ByteBuffer buffer;
+        InputStream input = socket.getInputStream();
         input.read(array);
         buffer = ByteBuffer.wrap(array);
         length = buffer.getInt();

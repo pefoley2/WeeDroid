@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void sendInit(View view) {
         Thread t =new Thread(new Network());
-        t.run();
+        t.start();
 
     }
 }

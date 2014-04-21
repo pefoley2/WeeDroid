@@ -2,7 +2,7 @@ package com.pefoley.weedroid.message;
 
 import java.nio.ByteBuffer;
 
-public class Message {
+public abstract class Message {
 
     String id;
     MsgType type;
@@ -20,6 +20,8 @@ public class Message {
         this.id = id;
         this.type = type;
     }
+
+    public abstract String toString();
 
     public String getId() {
         return id;
