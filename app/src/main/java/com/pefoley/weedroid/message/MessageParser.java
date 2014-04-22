@@ -1,8 +1,5 @@
 package com.pefoley.weedroid.message;
 
-import com.pefoley.weedroid.message.Message;
-import com.pefoley.weedroid.message.MsgType;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +8,7 @@ public class MessageParser {
     static String parseString(ByteBuffer buffer, int length) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            builder.append(buffer.getChar());
+            builder.append((char) buffer.get());
         }
         return builder.toString();
     }

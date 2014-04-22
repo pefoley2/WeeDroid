@@ -11,11 +11,7 @@ public class CharMessage extends Message {
         this.data = buffer.getChar();
     }
 
-    char getData() {
-        return data;
-    }
-
-    public String toString(){
+    public String toString() {
         return String.valueOf(data);
     }
 }

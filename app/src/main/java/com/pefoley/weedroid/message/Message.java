@@ -11,8 +11,10 @@ public abstract class Message {
         switch (type) {
             case CHR:
                 return new CharMessage(id, buffer);
+            case INF:
+                return new InfoMessage(id, buffer);
             default:
-                throw new RuntimeException("Unsupported type");
+                throw new RuntimeException("Unsupported message type:" + type);
         }
     }
 

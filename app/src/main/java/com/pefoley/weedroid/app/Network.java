@@ -21,6 +21,9 @@ public class Network implements Runnable {
             w.sendCommand(new InitCommand("fakepassword"));
             w.sendCommand(new InfoCommand("version"));
             List<Message> m = w.processPacket();
+            if (m == null) {
+                throw new IOException("Invalid password");
+            }
             for(Message q:m) {
                 Log.e("WEE", q.toString());
             }

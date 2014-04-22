@@ -1,27 +1,28 @@
 package com.pefoley.weedroid.app;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-import java.util.List;
-import java.util.zip.GZIPInputStream;
 import com.pefoley.weedroid.command.Command;
 import com.pefoley.weedroid.message.Message;
 import com.pefoley.weedroid.message.MessageParser;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.Socket;
+import java.nio.ByteBuffer;
+import java.util.List;
+import java.util.zip.GZIPInputStream;
+
 public class WeeChatRelay {
 
     private Socket socket;
+
 
     WeeChatRelay(Socket s) {
         this.socket = s;
     }
 
     void sendCommand(Command command) throws IOException {
-        socket.getOutputStream().write(command.toString().getBytes());
+        String output = command + "\n";
+        socket.getOutputStream().write(output.getBytes());
     }
 
     boolean isClosed() {
@@ -33,7 +34,9 @@ public class WeeChatRelay {
         int length;
         ByteBuffer buffer;
         InputStream input = socket.getInputStream();
-        input.read(array);
+        if (input.read(array) < 0) {
+            return null;
+        }
         buffer = ByteBuffer.wrap(array);
         length = buffer.getInt();
         // We don't need the length and compression fields.
