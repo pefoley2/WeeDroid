@@ -7,6 +7,11 @@ public abstract class Message {
     String id;
     MsgType type;
 
+    protected Message(String id, MsgType type) {
+        this.id = id;
+        this.type = type;
+    }
+
     public static Message parseMessage(String id, MsgType type, ByteBuffer buffer) {
         switch (type) {
             case CHR:
@@ -18,14 +23,6 @@ public abstract class Message {
         }
     }
 
-    protected Message(String id, MsgType type) {
-        this.id = id;
-        this.type = type;
-    }
-
     public abstract String toString();
 
-    public String getId() {
-        return id;
-    }
 }

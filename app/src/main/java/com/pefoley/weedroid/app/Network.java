@@ -1,5 +1,8 @@
 package com.pefoley.weedroid.app;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.pefoley.weedroid.command.InfoCommand;
@@ -12,19 +15,27 @@ import java.util.List;
 
 public class Network implements Runnable {
 
+    private Context context;
+
+    public Network(Context context) {
+        this.context = context;
+
+    }
+
     public void run() {
         Socket s = null;
         try {
             //FIXME: get from settings.
-            s = new Socket("pefoley.com", 8001);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            s = new Socket(preferences.getString("server", ""), preferences.getInt("port", 8000));
             WeeChatRelay w = new WeeChatRelay(s);
-            w.sendCommand(new InitCommand("fakepassword"));
+            w.sendCommand(new InitCommand(preferences.getString("password", "")));
             w.sendCommand(new InfoCommand("version"));
             List<Message> m = w.processPacket();
             if (m == null) {
                 throw new IOException("Invalid password");
             }
-            for(Message q:m) {
+            for (Message q : m) {
                 Log.e("WEE", q.toString());
             }
         } catch (IOException e) {

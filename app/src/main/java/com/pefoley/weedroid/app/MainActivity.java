@@ -1,7 +1,7 @@
 package com.pefoley.weedroid.app;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        
+
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
@@ -37,7 +37,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void sendInit(View view) {
-        Thread t =new Thread(new Network());
+        Thread t = new Thread(new Network(this.getBaseContext()));
         t.start();
 
     }

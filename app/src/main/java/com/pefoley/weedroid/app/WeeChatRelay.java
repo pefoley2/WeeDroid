@@ -15,7 +15,6 @@ public class WeeChatRelay {
 
     private Socket socket;
 
-
     WeeChatRelay(Socket s) {
         this.socket = s;
     }
@@ -25,22 +24,19 @@ public class WeeChatRelay {
         socket.getOutputStream().write(output.getBytes());
     }
 
-    boolean isClosed() {
-        return socket.isClosed();
-    }
-
     List<Message> processPacket() throws IOException {
         byte[] data, array = new byte[5];
         int length;
         ByteBuffer buffer;
         InputStream input = socket.getInputStream();
+        /* Connection lost */
         if (input.read(array) < 0) {
             return null;
         }
         buffer = ByteBuffer.wrap(array);
         length = buffer.getInt();
         // We don't need the length and compression fields.
-        data = new byte[length-5];
+        data = new byte[length - 5];
         // Compression
         if (buffer.get() != 0) {
             input = new GZIPInputStream(input);
