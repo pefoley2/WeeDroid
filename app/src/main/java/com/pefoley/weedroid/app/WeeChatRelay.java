@@ -16,9 +16,11 @@ import java.util.zip.GZIPInputStream;
 public class WeeChatRelay {
 
     private Socket socket;
+    private InputStream input;
 
-    WeeChatRelay(Socket s) {
+    WeeChatRelay(Socket s) throws IOException {
         this.socket = s;
+        this.input = s.getInputStream();
     }
 
     boolean connect(String password) throws IOException {
@@ -46,7 +48,6 @@ public class WeeChatRelay {
         byte[] data, array = new byte[5];
         int length;
         ByteBuffer buffer;
-        InputStream input = socket.getInputStream();
         /* Connection lost */
         if (input.read(array) < 0) {
             return null;

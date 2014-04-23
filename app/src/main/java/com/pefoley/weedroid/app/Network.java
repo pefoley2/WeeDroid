@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.pefoley.weedroid.command.TestCommand;
+import com.pefoley.weedroid.command.InfoCommand;
 import com.pefoley.weedroid.message.Message;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class Network implements Runnable {
             s = new Socket(server, port);
             WeeChatRelay w = new WeeChatRelay(s);
             w.connect(preferences.getString("password", ""));
-            List<Message> m = w.processCommand(new TestCommand());
+            List<Message> m = w.processCommand(new InfoCommand("version_git"));
             for (Message q : m) {
                 Log.e("WEE", q.toString());
             }
