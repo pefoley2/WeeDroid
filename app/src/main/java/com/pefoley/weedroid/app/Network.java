@@ -23,7 +23,7 @@ public class Network implements Runnable {
     }
 
     public void run() {
-        Socket s = null;
+        Socket s;
         try {
             //FIXME: get from settings.
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
