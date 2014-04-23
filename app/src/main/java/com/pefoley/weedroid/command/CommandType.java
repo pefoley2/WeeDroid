@@ -9,5 +9,7 @@ public enum CommandType {
     INPUT, // Send data to a buffer
     SYNC, // Synchronize buffer(s)
     DESYNC, // Desynchronize buffer(s)
+    TEST, // Testing
+    PING, // Ping
     QUIT // Disconnect from relay
 }
