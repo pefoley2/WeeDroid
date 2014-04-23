@@ -10,8 +10,6 @@ public class InfoCommand extends Command {
 
 
     public String toString() {
-        StringBuilder builder = new StringBuilder("info ");
-        builder.append(name);
-        return builder.toString();
+        return String.format("info %s", name);
     }
 }

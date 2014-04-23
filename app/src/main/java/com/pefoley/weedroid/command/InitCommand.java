@@ -16,11 +16,10 @@ public class InitCommand extends Command {
     }
 
     public String toString() {
-        StringBuilder builder = new StringBuilder("init ");
-        builder.append("password=").append(password);
+        String output = String.format("init password=%s", password);
         if (compression) {
-            builder.append(",compression=zlib");
+            output += ",compression=zlib";
         }
-        return builder.toString();
+        return output;
     }
 }
