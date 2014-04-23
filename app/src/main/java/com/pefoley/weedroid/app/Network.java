@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.pefoley.weedroid.command.InfoCommand;
-import com.pefoley.weedroid.command.InitCommand;
+import com.pefoley.weedroid.command.TestCommand;
 import com.pefoley.weedroid.message.Message;
 
 import java.io.IOException;
@@ -30,12 +29,8 @@ public class Network implements Runnable {
         try {
             s = new Socket(server, port);
             WeeChatRelay w = new WeeChatRelay(s);
-            w.sendCommand(new InitCommand(preferences.getString("password", "")));
-            w.sendCommand(new InfoCommand("version"));
-            List<Message> m = w.processPacket();
-            if (m == null) {
-                throw new IOException("Invalid password");
-            }
+            w.connect(preferences.getString("password", ""));
+            List<Message> m = w.processCommand(new TestCommand());
             for (Message q : m) {
                 Log.e("WEE", q.toString());
             }
