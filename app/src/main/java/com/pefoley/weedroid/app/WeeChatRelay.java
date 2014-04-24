@@ -8,6 +8,7 @@ import com.pefoley.weedroid.message.MessageParser;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -17,10 +18,12 @@ public class WeeChatRelay {
 
     private Socket socket;
     private InputStream input;
+    private OutputStream output;
 
     WeeChatRelay(Socket s) throws IOException {
         this.socket = s;
         this.input = s.getInputStream();
+        this.output = s.getOutputStream();
     }
 
     boolean connect(String password) throws IOException {
@@ -40,8 +43,7 @@ public class WeeChatRelay {
     }
 
     private void sendCommand(Command command) throws IOException {
-        String output = command + "\n";
-        socket.getOutputStream().write(output.getBytes());
+        output.write(String.format("%s\n", command).getBytes());
     }
 
     private List<Message> processPacket() throws IOException {
