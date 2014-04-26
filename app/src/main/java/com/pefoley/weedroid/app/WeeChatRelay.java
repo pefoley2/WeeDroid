@@ -1,5 +1,7 @@
 package com.pefoley.weedroid.app;
 
+import android.util.Log;
+
 import com.pefoley.weedroid.command.Command;
 import com.pefoley.weedroid.command.InfoCommand;
 import com.pefoley.weedroid.command.InitCommand;
@@ -12,7 +14,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.util.List;
-import java.util.zip.GZIPInputStream;
+import java.util.zip.InflaterInputStream;
 
 public class WeeChatRelay {
 
@@ -55,12 +57,13 @@ public class WeeChatRelay {
             return null;
         }
         buffer = ByteBuffer.wrap(array);
+        Log.e("WEE", buffer.toString());
         length = buffer.getInt();
         // We don't need the length and compression fields.
         data = new byte[length - 5];
         // Compression
         if (buffer.get() != 0) {
-            input = new GZIPInputStream(input);
+            input = new InflaterInputStream(input);
         }
         input.read(data);
         return MessageParser.parseMessages(ByteBuffer.wrap(data).asReadOnlyBuffer());

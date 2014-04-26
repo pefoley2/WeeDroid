@@ -5,13 +5,16 @@
         android:key="password"
         android:title="Relay Password"
         android:defaultValue=""
-        android:password="true" />
+        android:password="true"
+        />
     <EditTextPreference
         android:key="server"
         android:title="Relay Server"
-        android:defaultValue="" />
+        android:defaultValue=""
+        />
     <EditTextPreference
         android:key="port"
         android:title="Relay Port"
-        android:defaultValue="8000" />
+        android:defaultValue="8000"
+        />
 </PreferenceScreen>

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.pefoley.weedroid.command.TestCommand;
+import com.pefoley.weedroid.command.*;
 import com.pefoley.weedroid.message.Message;
 
 import java.io.IOException;
