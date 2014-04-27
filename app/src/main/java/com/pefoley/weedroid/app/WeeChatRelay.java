@@ -18,13 +18,10 @@ import java.util.zip.Inflater;
 
 public class WeeChatRelay {
 
-    private Socket socket;
     private InputStream input;
     private OutputStream output;
-    private int numbytes = 8192;
 
     WeeChatRelay(Socket s) throws IOException {
-        this.socket = s;
         this.input = s.getInputStream();
         this.output = s.getOutputStream();
     }
@@ -51,6 +48,7 @@ public class WeeChatRelay {
 
     private List<Message> processPacket() throws IOException {
         byte[] data, array = new byte[5];
+        int numbytes = 8192;
         int length;
         ByteBuffer buffer;
       /* Connection lost */
@@ -61,7 +59,7 @@ public class WeeChatRelay {
         length = buffer.getInt();
         // We don't need the length and compression fields.
         data = new byte[length - 5];
-        int size = 0, offset = 0;
+        int size, offset = 0;
         do {
             // Prevent overflow
             length = numbytes + offset < data.length ? numbytes : data.length - offset;

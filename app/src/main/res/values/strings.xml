@@ -4,7 +4,6 @@
     <string name="app_name">WeeDroid</string>
     <string name="action_settings">Settings</string>
     <string name="button">Init</string>
-    <string name="title_activity_settings">SettingsActivity</string>
 
 
 </resources>

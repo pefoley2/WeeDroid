@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.pefoley.weedroid.command.TestCommand;
+import com.pefoley.weedroid.command.HDataCommand;
 import com.pefoley.weedroid.message.Message;
 
 import java.io.IOException;
@@ -29,9 +29,9 @@ public class Network implements Runnable {
             Socket s = new Socket(server, port);
             WeeChatRelay w = new WeeChatRelay(s);
             w.connect(preferences.getString("password", ""));
-            List<Message> m = w.processCommand(new TestCommand());
-            for (Message q : m) {
-                Log.e("WEE", String.format("%s: %s", q.getType(), q));
+            List<Message> m = w.processCommand(new HDataCommand("buffer:gui_buffers(*)", "full_name"));
+            for (String str : m.get(0).toString().split("\n")) {
+                Log.e("WEE", str);
             }
         } catch (IOException e) {
             e.printStackTrace();
