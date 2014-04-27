@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="C:\Users\Peter\Documents\Android Studio\Projects\WeeDroid" />
-            <option value="C:\Users\Peter\Documents\Android Studio\Projects\WeeDroid\app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -8,7 +8,7 @@ public class CharMessage extends Message {
 
     CharMessage(String id, ByteBuffer buffer) {
         super(id, MsgType.CHR);
-        this.data = buffer.getChar();
+        this.data = (char) buffer.get();
     }
 
     public String toString() {

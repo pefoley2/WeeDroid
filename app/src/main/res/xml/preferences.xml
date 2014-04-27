@@ -2,19 +2,16 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
+        android:defaultValue=""
         android:key="password"
-        android:title="Relay Password"
-        android:defaultValue=""
         android:password="true"
-        />
+        android:title="Relay Password" />
     <EditTextPreference
-        android:key="server"
-        android:title="Relay Server"
         android:defaultValue=""
-        />
+        android:key="server"
+        android:title="Relay Server" />
     <EditTextPreference
-        android:key="port"
-        android:title="Relay Port"
         android:defaultValue="8000"
-        />
+        android:key="port"
+        android:title="Relay Port" />
 </PreferenceScreen>
