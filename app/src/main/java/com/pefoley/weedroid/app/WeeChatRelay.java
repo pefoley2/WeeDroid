@@ -39,11 +39,21 @@ public class WeeChatRelay {
 
     List<Message> processCommand(Command command) throws IOException {
         sendCommand(command);
+        output.write("\n".getBytes());
+        return processPacket();
+    }
+
+    List<Message> processCommands(Command[] commands) throws IOException {
+        for (Command c : commands) {
+            sendCommand(c);
+            output.write(" ".getBytes());
+        }
+        output.write("\n".getBytes());
         return processPacket();
     }
 
     private void sendCommand(Command command) throws IOException {
-        output.write(String.format("%s\n", command).getBytes());
+        output.write(command.toString().getBytes());
     }
 
     private List<Message> processPacket() throws IOException {

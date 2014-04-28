@@ -29,8 +29,13 @@ public class Network implements Runnable {
             Socket s = new Socket(server, port);
             WeeChatRelay w = new WeeChatRelay(s);
             w.connect(preferences.getString("password", ""));
-            List<Message> m = w.processCommand(new HDataCommand("buffer:gui_buffers(*)", "full_name"));
-            for (String str : m.get(0).toString().split("\n")) {
+            /*
+            (initialinfolist) infolist hotlist
+            (listbuffers) hdata buffer:gui_buffers(*) number,full_name,short_name,type,title,nicklist,local_variables,notify
+             */
+            List<Message> list = w.processCommand(new HDataCommand("buffer:gui_buffers(*)", "full_name,short_name,type,title,nicklist,local_varibles"));
+            for (Message m : list)
+                for (String str : m.toString().split("\n")) {
                 Log.e("WEE", str);
             }
         } catch (IOException e) {
