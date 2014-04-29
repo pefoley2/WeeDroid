@@ -1,15 +1,33 @@
 package com.pefoley.weedroid.command;
 
-public class SyncCommand extends Command {
-    String name;
+import android.text.TextUtils;
 
-    public SynCommand(String name) {
+public class SyncCommand extends Command {
+    String[] buffers;
+    String[] options = null;
+
+    public SyncCommand(String[] buffers) {
         this.type = CommandType.SYNC;
-        this.name = name;
+        this.buffers = buffers;
     }
 
+    public SyncCommand(String buffer) {
+        this(new String[]{buffer});
+    }
+
+    public SyncCommand(String[] buffers, String[] options) {
+        this(buffers);
+        this.options = options;
+    }
 
     public String toString() {
-        return String.format("sync %s", name);
+        StringBuilder output = new StringBuilder("sync");
+        output.append(" ");
+        output.append(TextUtils.join(",", buffers));
+        if (options != null) {
+            output.append(" ");
+            output.append(TextUtils.join(",", options));
+        }
+        return output.toString();
     }
 }

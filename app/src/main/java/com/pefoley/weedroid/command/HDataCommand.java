@@ -1,5 +1,7 @@
 package com.pefoley.weedroid.command;
 
+import android.text.TextUtils;
+
 public class HDataCommand extends Command {
     String path;
     String[] keys = null;
@@ -23,11 +25,7 @@ public class HDataCommand extends Command {
         StringBuilder output = new StringBuilder("hdata");
         output.append(" ").append(path).append(" ");
         if (keys != null) {
-            for (String s : keys) {
-                output.append(s).append(",");
-            }
-            // FIXME: don't be lazy
-            output.deleteCharAt(output.length() - 1);
+            output.append(TextUtils.join(",", keys));
         }
         return output.toString();
     }
